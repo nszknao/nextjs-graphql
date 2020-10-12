@@ -1,0 +1,12 @@
+version: '3'
+services:
+  db:
+    build: ./db
+    environment:
+      MYSQL_ROOT_PASSWORD: passw0rd
+    volumes:
+      - ./db/data:/var/lib/mysql
+      # 起動時に実行してくれる
+      - ./db/schema:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"
