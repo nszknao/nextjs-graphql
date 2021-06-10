@@ -4,6 +4,12 @@ import { PrismaClient } from "@prisma/client";
 import { makeSchema, objectType, stringArg } from "@nexus/schema";
 import { ApolloServer } from "apollo-server-micro";
 
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
+
 const prisma = new PrismaClient();
 
 const User = objectType({
@@ -185,6 +191,6 @@ export const schema = makeSchema({
   },
 });
 
-export default new ApolloServer({ schema }).createHandler({
-  path: "/api",
-});
+const apolloServer = new ApolloServer({ schema });
+
+export default apolloServer.createHandler({ path: "/api/graphql" });
