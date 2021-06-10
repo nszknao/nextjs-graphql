@@ -27,10 +27,6 @@ yarn add @apollo/client graphql
 ```
 # app
 yarn dev
-
-# DB
-docker-compose build
-docker-compose up -d
 ```
 
 ---
