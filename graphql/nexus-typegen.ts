@@ -4,7 +4,7 @@
  */
 
 
-
+import { Context } from "./context"
 
 
 
@@ -29,12 +29,17 @@ export interface NexusGenScalars {
 
 export interface NexusGenObjects {
   Post: { // root type
-    body?: string | null; // String
-    id?: string | null; // String
-    published?: boolean | null; // Boolean
-    title?: string | null; // String
+    author: NexusGenRootTypes['User']; // User!
+    body: string; // String!
+    id: string; // String!
+    published: boolean; // Boolean!
+    title: string; // String!
   }
   Query: {};
+  User: { // root type
+    id: string; // String!
+    name: string; // String!
+  }
 }
 
 export interface NexusGenInterfaces {
@@ -50,13 +55,18 @@ export type NexusGenAllTypes = NexusGenRootTypes & NexusGenScalars
 
 export interface NexusGenFieldTypes {
   Post: { // field return type
-    body: string | null; // String
-    id: string | null; // String
-    published: boolean | null; // Boolean
-    title: string | null; // String
+    author: NexusGenRootTypes['User']; // User!
+    body: string; // String!
+    id: string; // String!
+    published: boolean; // Boolean!
+    title: string; // String!
   }
   Query: { // field return type
     drafts: Array<NexusGenRootTypes['Post'] | null>; // [Post]!
+  }
+  User: { // field return type
+    id: string; // String!
+    name: string; // String!
   }
   Node: { // field return type
     id: string; // ID!
@@ -65,6 +75,7 @@ export interface NexusGenFieldTypes {
 
 export interface NexusGenFieldTypeNames {
   Post: { // field return type name
+    author: 'User'
     body: 'String'
     id: 'String'
     published: 'Boolean'
@@ -72,6 +83,10 @@ export interface NexusGenFieldTypeNames {
   }
   Query: { // field return type name
     drafts: 'Post'
+  }
+  User: { // field return type name
+    id: 'String'
+    name: 'String'
   }
   Node: { // field return type name
     id: 'ID'
@@ -112,7 +127,7 @@ export type NexusGenFeaturesConfig = {
 }
 
 export interface NexusGenTypes {
-  context: any;
+  context: Context;
   inputTypes: NexusGenInputs;
   rootTypes: NexusGenRootTypes;
   inputTypeShapes: NexusGenInputs & NexusGenEnums & NexusGenScalars;

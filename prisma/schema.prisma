@@ -4,14 +4,14 @@ generator client {
 
 datasource db {
   provider = "sqlite"
-  url      = "file::./dev.db"
+  url      = "file:./dev.db"
 }
 
 model Post {
   id        Int      @id @default(autoincrement())
   title     String
   createdAt DateTime @default(now())
-  content   String?
+  body      String
   published Boolean  @default(false)
   authorId  Int
   author    User     @relation(fields: [authorId], references: [id])

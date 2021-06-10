@@ -5,12 +5,17 @@ import { PrismaClient } from "@prisma/client";
 import { ApolloServer } from "apollo-server-micro";
 
 import * as types from "../../graphql/schema";
+import { Context } from "../../graphql/context";
 
 export const schema = makeSchema({
   types,
   outputs: {
     typegen: path.join(process.cwd(), "graphql", "nexus-typegen.ts"),
     schema: path.join(process.cwd(), "graphql", "schema.graphql"),
+  },
+  contextType: {
+    module: path.join(process.cwd(), "graphql", "context.ts"),
+    export: "Context",
   },
 });
 
@@ -21,7 +26,10 @@ export const config = {
 };
 
 const prisma = new PrismaClient();
+const context: Context = {
+  prisma,
+};
 
-const apolloServer = new ApolloServer({ schema });
+const apolloServer = new ApolloServer({ schema, context });
 
 export default apolloServer.createHandler({ path: "/api/graphql" });

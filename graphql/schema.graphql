@@ -9,12 +9,19 @@ interface Node {
 
 """ユーザーの投稿"""
 type Post {
-  body: String
-  id: String
-  published: Boolean
-  title: String
+  author: User!
+  body: String!
+  id: String!
+  published: Boolean!
+  title: String!
 }
 
 type Query {
   drafts: [Post]!
+}
+
+"""ユーザー"""
+type User {
+  id: String!
+  name: String!
 }
