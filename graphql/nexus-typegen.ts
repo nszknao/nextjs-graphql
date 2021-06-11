@@ -3,7 +3,7 @@
  * Do not make changes to this file directly
  */
 
-
+import * as PrismaClient from ".prisma/client"
 import { Context } from "./context"
 
 
@@ -28,18 +28,9 @@ export interface NexusGenScalars {
 }
 
 export interface NexusGenObjects {
-  Post: { // root type
-    author: NexusGenRootTypes['User']; // User!
-    body: string; // String!
-    id: string; // String!
-    published: boolean; // Boolean!
-    title: string; // String!
-  }
+  Post: PrismaClient.Post;
   Query: {};
-  User: { // root type
-    id: string; // String!
-    name: string; // String!
-  }
+  User: PrismaClient.User;
 }
 
 export interface NexusGenInterfaces {
@@ -57,7 +48,7 @@ export interface NexusGenFieldTypes {
   Post: { // field return type
     author: NexusGenRootTypes['User']; // User!
     body: string; // String!
-    id: string; // String!
+    id: number; // Int!
     published: boolean; // Boolean!
     title: string; // String!
   }
@@ -65,7 +56,8 @@ export interface NexusGenFieldTypes {
     drafts: Array<NexusGenRootTypes['Post'] | null>; // [Post]!
   }
   User: { // field return type
-    id: string; // String!
+    email: string; // String!
+    id: number; // Int!
     name: string; // String!
   }
   Node: { // field return type
@@ -77,7 +69,7 @@ export interface NexusGenFieldTypeNames {
   Post: { // field return type name
     author: 'User'
     body: 'String'
-    id: 'String'
+    id: 'Int'
     published: 'Boolean'
     title: 'String'
   }
@@ -85,7 +77,8 @@ export interface NexusGenFieldTypeNames {
     drafts: 'Post'
   }
   User: { // field return type name
-    id: 'String'
+    email: 'String'
+    id: 'Int'
     name: 'String'
   }
   Node: { // field return type name

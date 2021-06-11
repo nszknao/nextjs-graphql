@@ -17,6 +17,10 @@ export const schema = makeSchema({
     module: path.join(process.cwd(), "graphql", "context.ts"),
     export: "Context",
   },
+  // ref: https://github.com/graphql-nexus/nexus/blob/main/examples/with-prisma/api.ts
+  sourceTypes: {
+    modules: [{ module: ".prisma/client", alias: "PrismaClient" }],
+  },
 });
 
 export const config = {
@@ -26,10 +30,7 @@ export const config = {
 };
 
 const prisma = new PrismaClient();
-const context: Context = {
-  prisma,
-};
 
-const apolloServer = new ApolloServer({ schema, context });
+const apolloServer = new ApolloServer({ schema, context: () => ({ prisma }) });
 
 export default apolloServer.createHandler({ path: "/api/graphql" });

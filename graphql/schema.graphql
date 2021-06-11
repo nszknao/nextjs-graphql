@@ -11,7 +11,7 @@ interface Node {
 type Post {
   author: User!
   body: String!
-  id: String!
+  id: Int!
   published: Boolean!
   title: String!
 }
@@ -22,6 +22,7 @@ type Query {
 
 """ユーザー"""
 type User {
-  id: String!
+  email: String!
+  id: Int!
   name: String!
 }
